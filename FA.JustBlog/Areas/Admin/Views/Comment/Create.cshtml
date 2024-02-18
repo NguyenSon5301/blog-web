@@ -1,0 +1,56 @@
+﻿@model CommentVM
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+<form method="post">
+    <div class="p-4">
+                <div asp-validation-summary="All"></div>
+
+        <div class="row">
+            <h2 class="text-primary">Create Commnent</h2>
+        </div>
+        <input asp-for="Comment.Id" class="form-control" hidden />
+        <div class="mb-3 row">
+            <label asp-for="Comment.CommentDescription" class="p-0"></label>
+            <input asp-for="Comment.CommentDescription" class="form-control" />
+            <span asp-validation-for="Comment.CommentDescription" class="text-danger"></span>
+        </div>
+        <div class="mb-3 row">
+            <label asp-for="Comment.CommentDate" class="p-0"></label>
+            <input asp-for="Comment.CommentDate" class="form-control" />
+            <span asp-validation-for="Comment.CommentDate" class="text-danger"></span>
+        </div>   
+          <div class="mb-3 row">
+            <label asp-for="Comment.PostId" class="p-0"></label>
+            <select asp-for="Comment.PostId" asp-items="@Model.PostList" class="selectpicker form-control" data-size="5"  data-live-search="true">
+                <option disabled selected>--Select Post</option>
+            </select>
+            <span asp-validation-for="Comment.PostId" class="text-danger"></span>
+        </div> 
+        <div class="mb-3 row">
+            <label asp-for="Comment.UserId" class="p-0"></label>
+            <select asp-for="Comment.UserId" asp-items="@Model.UserList" class="selectpicker form-control" data-size="5" data-live-search="true">
+                <option disabled selected>--Select User</option>
+            </select>
+            <span asp-validation-for="Comment.PostId" class="text-danger"></span>
+        </div>  
+        <div class="row">
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary form-control" >Create</button>
+            </div>
+            <div class="col-6">
+                  <a asp-area="Admin" asp-controller="Comment" asp-action="Index" class="btn btn-secondary form-control">
+                        Back to List
+                    </a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

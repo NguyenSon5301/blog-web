@@ -1,0 +1,154 @@
+﻿@model Post
+@{
+    ViewData["ImageBackground"] = "/assets/img/home-bg.jpg";
+    ViewData["Header"] = @Model.Title;
+    ViewData["Subheading"] = "Posted on " + @Model.CreateAtDate;
+}
+
+
+
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <p>@Html.Raw(Model.Decription)</p>
+            <hr/>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="container mt-5 mb-5">
+    <div class="d-flex justify-content-center row">
+            <div class="d-flex flex-column col-md-8">
+
+                <div class="coment-bottom bg-white p-2 px-4">
+                    <form id="commentForm" asp-controller="Post" asp-action="AddComment2" asp-antiforgery="true"
+                    method="post" autocomplete="off" role="form">
+                     <div id="captchaContainer">
+                        <dnt-captcha
+                            asp-captcha-generator-max="999999"
+                             asp-captcha-generator-min="111111"
+                             asp-captcha-generator-language="English"
+                             asp-captcha-generator-display-mode="ShowDigits"
+                             asp-use-relative-urls="true"
+                             asp-placeholder="Security code as a number"
+                             asp-validation-error-message="Please enter the security code as a number."
+                             asp-too-many-requests-error-message="Too many requests! Please wait a minute!"
+                             asp-font-name="Tahoma"
+                             asp-font-size="20"
+                             asp-fore-color="#333333"
+                             asp-back-color="#FCF6F5FF"
+                             asp-text-box-class="form-control"
+                             asp-text-box-template="<div class='input-group'><span class='input-group-text'><span class='bi-lock'></span></span>{0}</div>"
+                             asp-validation-message-class="text-danger"
+                             asp-refresh-button-class="bi bi-arrow-clockwise ml-4"
+                             asp-show-refresh-button="true"
+                             asp-dir="ltr"/>
+                    </div>
+                    <input asp-for="CreateAtDate" hidden/>
+                    <input asp-for="Title" hidden/>
+                    <input asp-for="Id" hidden/>
+                    <div class="form-group d-flex flex-row  add-comment-section mt-4 mb-4"><img class="img-fluid img-responsive rounded-circle" src="https://i.imgur.com/qdiP4DB.jpg" width="60">
+                        <input id="inputComment" name="desc" type="text" class="form-control mr-3" placeholder="Add comment"/>
+                        <button type="submit" class="btn btn-primary" type="button">Comment</button>
+                    </div>
+                    </form>
+                @foreach (var item in Model.Comments.OrderByDescending(c => c.CommentDate))
+                {
+                            <div class="commented-section mt-2">
+                                <div class="d-flex flex-row align-items-center commented-user">
+                                    <h5 class="mr-4 mt-3">@item.User.Name</h5> <p style="font-size:5px">"            "</p>
+                                        <span class="mb-1 ml-2 mt-3" style="font-size:15px">@item.CommentDate.RenderFriendlyDateTime()</span>
+                                </div>
+                                <div class="comment-text-sm"><span>@item.CommentDescription</span></div>
+                            </div>
+                }
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+</div>
+<script src="~/js/site.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+
+<script type="text/javascript">
+  $(document).ready(function () {
+        $('#commentForm').submit(function (e) {
+            e.preventDefault(); // Prevent the default form submission
+            var element = $("#DNT_CaptchaInputText").val();
+            console.log(element);
+            if(!element){
+                return;
+            }
+            // Serialize the form data
+            var formData = $(this).serialize();
+            // Get comment input
+            var commentDescInput = $("#inputComment").val();
+            if(commentDescInput){
+            // Send an AJAX requestx`
+            $.ajax({
+                type: 'POST',
+                url: '/Post/AddComment2',
+                data: formData,
+                success: function (data) {
+                     if(data.success){
+                        location.reload(true);
+                     }
+                     else{
+                         alert("CAPTCHA answer is incorrect, please try again");
+                     };
+                },
+                error: function (error) {
+                    // Handle errors if needed
+                }
+            });
+            }
+            else{
+               alert("You need to add something to comment!!!");
+            };
+        });
+    });
+
+
+function AddComment(){
+    var commentDescInput = $("#inputComment").val();
+
+    if(commentDescInput){
+     $.ajax({
+        type: "GET",
+        url: "/Post/AddComment",
+        data: {
+            commentDesc: commentDescInput,
+            postId: @Model.Id,
+        },
+        success: function(data){
+            if(data.success){
+                location.reload(true);
+            }
+        },
+        error: function (err) {
+            console.error("Error:", err);
+        }
+    });
+    } else{
+        alert("You need to add something to comment!!!");
+    };
+}
+</script>
+
+

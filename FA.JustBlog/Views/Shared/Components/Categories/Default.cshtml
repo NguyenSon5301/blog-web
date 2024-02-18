@@ -1,0 +1,9 @@
+﻿@model List<Category>
+<div class="collapse navbar-collapse" >
+    <ul class="navbar-nav ms-auto py-4 py-lg-0">
+        @foreach(var item in Model)
+        {
+            <li class="nav-item"><a asp-controller="@item.Controller" asp-action="@item.Action" class="nav-link px-lg-3 py-3 py-lg-4" >@item.Title</a></li>
+        }
+    </ul>
+</div>

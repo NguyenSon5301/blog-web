@@ -1,0 +1,136 @@
+﻿@model PaginatedList<IdentityRole>
+<partial name="_Notification" />
+                    <div class="container-fluid px-4">
+                            <div class="row pt-4 pb-3">
+        <div class="col-6">
+                   <h2 >Roles</h2>
+        </div>
+           
+
+        <div class="col-6 text-end"> 
+            <a asp-area="Admin" asp-controller="Role" asp-action="Create" class="btn btn-primary"> Create New Role </a>
+        </div>
+                     <div class="col-6 "> 
+
+        <form asp-action="Index" method="get">
+            <div class="form-actions no-color">
+                <p>
+                    Find by name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                    <input type="submit" value="Search" class="btn btn-primary" /> |
+                    <a asp-action="Index">Back to Full List</a>
+                </p>
+            </div>
+        </form>
+    </div>
+    </div>
+
+                         <div class="card-body">
+                                  <table id="idtest" class="table table-striped table-bordered" >
+  <thead class="thead-light">
+    <tr>
+       
+        <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameRoleSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Last Name</a>
+        </th> 
+        <th>
+            Normalized Name
+        </th> 
+        <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["ConcurrencyStampSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Last Name</a>
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+                @foreach (var item in Model)
+                                {
+                    <tr>
+                            <td>@item.Name</td>
+                            <td>@item.NormalizedName</td>
+                            <td>@item.ConcurrencyStamp</td>
+                            <td>
+                            <div class="w-75 btn-group" role="group">
+                                    <a asp-area="Admin"  asp-controller="Role" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary mx-2">
+                                    Edit
+                                </a>
+                                        <a asp-area="Admin" asp-controller="Role" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger mx-2">
+                                    Delete
+                                </a>
+                            </div>
+                            </td>
+                     </tr>
+                                }
+    </tbody>
+</table>
+                            </div>
+
+                    </div>
+
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+<div class="text-center">
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-primary @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-primary @nextDisabled">
+    Next
+</a>
+</div>
+
+@* 
+<script type="text/javascript">
+    var js = jQuery.noConflict(true);
+    js(document).ready(function(){
+     
+        LoadListing();
+    });
+
+function FunEdit(id){
+    window.location.href = "/Admin/Role/Edit/" + id;
+}
+function FunDelete(id){
+    window.location.href = "/Admin/Role/Delete/" + id;
+}
+
+function LoadListing(){
+    var roledata = [];
+    $.ajax({
+        type: "POST",
+        url: "/Admin/Role/GetData",
+        async: false,
+        success: function(data){
+            console.log(data);
+            $.each(data, function(key, value){
+                var editbtn = `<a onclick="FunEdit('` + value.id + `')" class='btn btn-primary mx-2'>Edit</a>`;
+                var deletebtn = "";
+                @if (User.IsInRole(SD.Role_Blog_Owner))
+                {
+                    @:deletebtn = `<a onclick="FunDelete('` + value.id + `')" class='btn btn-danger mx-2'>Delete</a>`;
+                    //We can u @: or <text></text> to code c# code in js code
+                }
+                var action = `<div class="w-75 btn-group" role="group">` + editbtn + deletebtn; + "</div>";
+                roledata.push([value.name,value.normalizedName,value.concurrencyStamp,action]);
+            })
+        },
+        failure: function(err){
+        
+        }
+    });
+    js('#idtest').DataTable({
+        data: roledata
+        });
+}
+    </script> *@
+
+

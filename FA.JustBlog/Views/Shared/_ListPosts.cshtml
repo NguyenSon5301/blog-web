@@ -1,0 +1,43 @@
+﻿@model List<Post>
+<div class="container">
+    <div class="row pt-4 pb-3">
+
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                 <div class="col-md-10 col-lg-8 col-xl-7">
+                    <h2 class="text">@ViewData["Title"]</h2>
+                </div>
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <!-- Post preview-->
+                    @foreach (var item in Model)
+                    {
+                                 <div class="post-preview">
+
+                                    <a asp-controller="Post" asp-action="Details" asp-route-year="@item.CreateAtDate.Year" asp-route-month="@item.CreateAtDate.Month.ToString("00")" asp-route-title="@item.Title.ToString()">
+                                        <h2 class="post-title">@item.Title</h2>
+                                    </a>
+                                    <p class="post-meta">
+                                        @item.ToString()
+                                    </p>
+                                    <p>
+                                            Category @Html.ActionLink(item.Category.Controller, item.Category.Action, item.Category.Title)
+                                    </p>
+                                    @if (item.PostTags.Count() > 0)
+                                    {
+                                        <p>
+                                            Tag: @foreach (var tag in item.PostTags)
+                                            {
+                                                <a type="button" asp-controller="@tag.Tag.Controller" asp-action="@tag.Tag.Action" class="btn btn-dark">@tag.Tag.Title</a>
+                                            }
+                                        </p>
+                                    }
+                            <span>@Html.Raw(item.Decription)</span>
+                                    </div>
+                                <hr class="my-4" />
+                    }
+                    @* <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div> *@
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

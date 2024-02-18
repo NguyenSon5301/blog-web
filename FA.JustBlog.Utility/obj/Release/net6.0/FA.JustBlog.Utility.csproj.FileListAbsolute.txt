@@ -1,0 +1,12 @@
+D:\Desktop\FA\CNU\FA.JustBlog\FA.JustBlog.Utility\bin\Release\net6.0\FA.JustBlog.Utility.deps.json
+D:\Desktop\FA\CNU\FA.JustBlog\FA.JustBlog.Utility\bin\Release\net6.0\FA.JustBlog.Utility.dll
+D:\Desktop\FA\CNU\FA.JustBlog\FA.JustBlog.Utility\bin\Release\net6.0\FA.JustBlog.Utility.pdb
+D:\Desktop\FA\CNU\FA.JustBlog\FA.JustBlog.Utility\obj\Release\net6.0\FA.JustBlog.Utility.csproj.AssemblyReference.cache
+D:\Desktop\FA\CNU\FA.JustBlog\FA.JustBlog.Utility\obj\Release\net6.0\FA.JustBlog.Utility.GeneratedMSBuildEditorConfig.editorconfig
+D:\Desktop\FA\CNU\FA.JustBlog\FA.JustBlog.Utility\obj\Release\net6.0\FA.JustBlog.Utility.AssemblyInfoInputs.cache
+D:\Desktop\FA\CNU\FA.JustBlog\FA.JustBlog.Utility\obj\Release\net6.0\FA.JustBlog.Utility.AssemblyInfo.cs
+D:\Desktop\FA\CNU\FA.JustBlog\FA.JustBlog.Utility\obj\Release\net6.0\FA.JustBlog.Utility.csproj.CoreCompileInputs.cache
+D:\Desktop\FA\CNU\FA.JustBlog\FA.JustBlog.Utility\obj\Release\net6.0\FA.JustBlog.Utility.dll
+D:\Desktop\FA\CNU\FA.JustBlog\FA.JustBlog.Utility\obj\Release\net6.0\refint\FA.JustBlog.Utility.dll
+D:\Desktop\FA\CNU\FA.JustBlog\FA.JustBlog.Utility\obj\Release\net6.0\FA.JustBlog.Utility.pdb
+D:\Desktop\FA\CNU\FA.JustBlog\FA.JustBlog.Utility\obj\Release\net6.0\ref\FA.JustBlog.Utility.dll

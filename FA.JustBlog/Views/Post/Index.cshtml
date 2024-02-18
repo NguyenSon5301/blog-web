@@ -1,0 +1,58 @@
+﻿@model List<Post>
+@{
+    ViewData["Title"] = "All Posts!";
+    ViewData["ImageBackground"] = "/assets/img/home-bg.jpg";
+    ViewData["Header"] = "Clean Blog";
+    ViewData["Subheading"] = "A Blog Theme by Start Bootstrap";
+}
+<div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                 <div class="col-md-10 col-lg-8 col-xl-7">
+                      <form id="searchForm" asp-controller="Post" asp-action="Search" method="get" role="form">
+                            <div class="input-group">
+                                 <input type="search" id="searchString" name="inputSearch"  class="form-control rounded" placeholder="Search..." aria-label="Search" aria-describedby="search-addon" />
+                                 <button type="submit" class="btn btn-outline-primary" data-mdb-ripple-init>search</button>
+                            </div>
+                      </form>
+
+        </div>
+    </div>
+</div>
+<div id="postListContainer">
+            <partial name="_ListPosts" model="Model" />
+</div>
+
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+<script type="text/javascript">
+  $(document).ready(function () {
+     // $('#searchString').change(function () {
+     //     
+     // });
+        $('#searchForm').submit(function (e) {
+            e.preventDefault(); // Prevent the default form submission
+
+            // Serialize the form data
+            var formData = $(this).serialize();
+            // Get comment input
+            $.ajax({
+                url: '/Post/Search',
+                data: formData,
+                type: 'GET',
+                success: function (result) {
+                    $('#postListContainer').html(result);
+                },
+                error: function (error) {
+                    // Handle errors if needed
+                }
+            });
+        });
+    });
+</script>

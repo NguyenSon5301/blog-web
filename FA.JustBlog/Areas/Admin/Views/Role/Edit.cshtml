@@ -1,0 +1,33 @@
+﻿@model IdentityRole
+<form method="post">
+    <div class="p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Edit IdentityRole</h2>
+        </div>
+      <input asp-for="Id" class="form-control" hidden />
+      <input asp-for="ConcurrencyStamp" class="form-control" hidden />
+      <input asp-for="NormalizedName" class="form-control" hidden />
+      <div class="mb-3 row">
+            <label asp-for="Name" class="p-0"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary form-control" >Update</button>
+            </div>
+            <div class="col-6">
+                  <a asp-area="Admin" asp-controller="Role" asp-action="Index" class="btn btn-secondary form-control">
+                        Back to List
+                    </a>
+            </div>
+        </div>
+
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
